@@ -14,6 +14,9 @@ android {
         versionName "1.0"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        manifestPlaceholders = [
+                'appAuthRedirectScheme': 'net.openid.appauthdemo' // voir pour mettre un autre scheme
+        ]
     }
 
     buildTypes {
@@ -32,15 +35,26 @@ android {
 }
 
 dependencies {
+    // Fix Duplicate class
+    implementation(platform("org.jetbrains.kotlin:kotlin-bom:1.8.0"))
+    // De AuthApp
+    implementation "net.openid:appauth:${project.appAuthVersion}"
+    implementation "androidx.appcompat:appcompat:${project.androidXVersions.appCompat}"
+    implementation "androidx.annotation:annotation:${project.androidXVersions.annotation}"
+    implementation "com.google.android.material:material:${project.googleVersions.material}"
+    implementation "com.github.bumptech.glide:glide:${project.googleVersions.glide}"
+    implementation "com.squareup.okio:okio:${project.okioVersion}"
+    implementation "joda-time:joda-time:${project.jodaVersion}"
 
-    implementation 'androidx.appcompat:appcompat:1.6.1'
-    implementation 'com.google.android.material:material:1.9.0'
-    implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
-    implementation 'androidx.lifecycle:lifecycle-livedata-ktx:2.6.1'
-    implementation 'androidx.lifecycle:lifecycle-viewmodel-ktx:2.6.1'
-    implementation 'androidx.navigation:navigation-fragment:2.6.0'
-    implementation 'androidx.navigation:navigation-ui:2.6.0'
-    testImplementation 'junit:junit:4.13.2'
-    androidTestImplementation 'androidx.test.ext:junit:1.1.5'
-    androidTestImplementation 'androidx.test.espresso:espresso-core:3.5.1'
+    annotationProcessor "com.github.bumptech.glide:compiler:${project.googleVersions.glide}"
+
+    // Initial
+    //implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
+    implementation "androidx.lifecycle:lifecycle-livedata-ktx:${project.androidXVersions.lifecycleLivedataKtx}"
+    implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:${project.androidXVersions.lifecycleViewmodelKtx}"
+    implementation "androidx.navigation:navigation-fragment:${project.androidXVersions.navigationFragment}"
+    implementation "androidx.navigation:navigation-ui:${project.androidXVersions.navigationUi}"
+    testImplementation "junit:junit:${project.juniVersion}"
+    androidTestImplementation "androidx.test.ext:junit:${project.androidXVersions.junit}"
+    androidTestImplementation "androidx.test.espresso:espresso-core:${project.androidXVersions.espressoCore}"
 }
