@@ -134,7 +134,7 @@ public final class LoginActivity extends AppCompatActivity {
             return;
         }
 
-        configureBrowserSelector();
+//        configureBrowserSelector();
         if (mConfiguration.hasConfigurationChanged()) {
             // discard any existing authorization state due to the change of configuration
             Log.i(TAG, "Configuration change detected, discarding old state");
@@ -310,38 +310,38 @@ public final class LoginActivity extends AppCompatActivity {
         initializeAuthRequest();
     }
 
-    /**
-     * Enumerates the browsers installed on the device and populates a spinner, allowing the
-     * demo user to easily test the authorization flow against different browser and custom
-     * tab configurations.
-     */
-    @MainThread
-    private void configureBrowserSelector() {
-        Spinner spinner = (Spinner) findViewById(R.id.browser_selector);
-        final BrowserSelectionAdapter adapter = new BrowserSelectionAdapter(this);
-        spinner.setAdapter(adapter);
-        spinner.setOnItemSelectedListener(new OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                BrowserSelectionAdapter.BrowserInfo info = adapter.getItem(position);
-                if (info == null) {
-                    mBrowserMatcher = AnyBrowserMatcher.INSTANCE;
-                    return;
-                } else {
-                    mBrowserMatcher = new ExactBrowserMatcher(info.mDescriptor);
-                }
-
-                recreateAuthorizationService();
-                createAuthRequest(getLoginHint());
-                warmUpBrowser();
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> parent) {
-                mBrowserMatcher = AnyBrowserMatcher.INSTANCE;
-            }
-        });
-    }
+//    /**
+//     * Enumerates the browsers installed on the device and populates a spinner, allowing the
+//     * demo user to easily test the authorization flow against different browser and custom
+//     * tab configurations.
+//     */
+//    @MainThread
+//    private void configureBrowserSelector() {
+//        Spinner spinner = (Spinner) findViewById(R.id.browser_selector);
+//        final BrowserSelectionAdapter adapter = new BrowserSelectionAdapter(this);
+//        spinner.setAdapter(adapter);
+//        spinner.setOnItemSelectedListener(new OnItemSelectedListener() {
+//            @Override
+//            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+//                BrowserSelectionAdapter.BrowserInfo info = adapter.getItem(position);
+//                if (info == null) {
+//                    mBrowserMatcher = AnyBrowserMatcher.INSTANCE;
+//                    return;
+//                } else {
+//                    mBrowserMatcher = new ExactBrowserMatcher(info.mDescriptor);
+//                }
+//
+//                recreateAuthorizationService();
+//                createAuthRequest(getLoginHint());
+//                warmUpBrowser();
+//            }
+//
+//            @Override
+//            public void onNothingSelected(AdapterView<?> parent) {
+//                mBrowserMatcher = AnyBrowserMatcher.INSTANCE;
+//            }
+//        });
+//    }
 
     /**
      * Performs the authorization request, using the browser selected in the spinner,
