@@ -126,8 +126,8 @@ public final class LoginActivity extends AppCompatActivity {
                 mExecutor.submit(this::initializeAppAuth));
         findViewById(R.id.start_auth).setOnClickListener((View view) -> startAuth());
 
-        ((EditText)findViewById(R.id.login_hint_value)).addTextChangedListener(
-                new LoginHintChangeHandler());
+//        ((EditText)findViewById(R.id.login_hint_value)).addTextChangedListener(
+//                new LoginHintChangeHandler());
 
         if (!mConfiguration.isValid()) {
             displayError(mConfiguration.getConfigurationError(), false);
@@ -232,6 +232,7 @@ public final class LoginActivity extends AppCompatActivity {
         // noinspection WrongThread
         runOnUiThread(() -> displayLoading("Retrieving discovery document"));
         Log.i(TAG, "Retrieving OpenID discovery doc");
+        Log.e(TAG, "DiscoveryUri : " + mConfiguration.getDiscoveryUri());
         AuthorizationServiceConfiguration.fetchFromUrl(
                 mConfiguration.getDiscoveryUri(),
                 this::handleConfigurationRetrievalResult,
@@ -494,10 +495,11 @@ public final class LoginActivity extends AppCompatActivity {
     }
 
     private String getLoginHint() {
-        return ((EditText)findViewById(R.id.login_hint_value))
-                .getText()
-                .toString()
-                .trim();
+//        return ((EditText)findViewById(R.id.login_hint_value))
+//                .getText()
+//                .toString()
+//                .trim();
+        return ""; // supression du login hint
     }
 
     @TargetApi(Build.VERSION_CODES.M)
@@ -522,10 +524,10 @@ public final class LoginActivity extends AppCompatActivity {
         private Handler mHandler;
         private RecreateAuthRequestTask mTask;
 
-        LoginHintChangeHandler() {
-            mHandler = new Handler(Looper.getMainLooper());
-            mTask = new RecreateAuthRequestTask();
-        }
+//        LoginHintChangeHandler() {
+//            mHandler = new Handler(Looper.getMainLooper());
+//            mTask = new RecreateAuthRequestTask();
+//        }
 
         @Override
         public void beforeTextChanged(CharSequence cs, int start, int count, int after) {}
