@@ -79,12 +79,12 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"/>
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/auth_options"
-                    android:layout_marginTop="16dp"
-                    style="@style/Base.TextAppearance.AppCompat.Subhead" />
+<!--                <TextView-->
+<!--                    android:layout_width="wrap_content"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:text="@string/auth_options"-->
+<!--                    android:layout_marginTop="16dp"-->
+<!--                    style="@style/Base.TextAppearance.AppCompat.Subhead" />-->
 
 <!--                <com.google.android.material.textfield.TextInputLayout-->
 <!--                    android:layout_width="match_parent"-->
@@ -117,11 +117,11 @@
 <!--                    android:layout_width="match_parent"-->
 <!--                    android:layout_height="wrap_content" />-->
 
-                <CheckBox
-                    android:id="@+id/pending_intents_checkbox"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/use_pending_intents"/>
+<!--                <CheckBox-->
+<!--                    android:id="@+id/pending_intents_checkbox"-->
+<!--                    android:layout_width="wrap_content"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:text="@string/use_pending_intents"/>-->
 
 
                 <TextView
@@ -139,6 +139,12 @@
 
                 <TextView
                     android:id="@+id/client_id"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textIsSelectable="true" />
+
+                <TextView
+                    android:id="@+id/end_session_endpoint"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:textIsSelectable="true" />

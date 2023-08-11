@@ -97,7 +97,7 @@ public final class LoginActivity extends AppCompatActivity {
     private CountDownLatch mAuthIntentLatch = new CountDownLatch(1);
     private ExecutorService mExecutor;
 
-    private boolean mUsePendingIntents;
+//    private boolean mUsePendingIntents;
 
     @NonNull
     private BrowserMatcher mBrowserMatcher = AnyBrowserMatcher.INSTANCE;
@@ -190,7 +190,7 @@ public final class LoginActivity extends AppCompatActivity {
     void startAuth() {
         displayLoading("Making authorization request");
 
-        mUsePendingIntents = ((CheckBox) findViewById(R.id.pending_intents_checkbox)).isChecked();
+//        mUsePendingIntents = ((CheckBox) findViewById(R.id.pending_intents_checkbox)).isChecked();
 
         // WrongThread inference is incorrect for lambdas
         // noinspection WrongThread
@@ -355,7 +355,7 @@ public final class LoginActivity extends AppCompatActivity {
             Log.w(TAG, "Interrupted while waiting for auth intent");
         }
 
-        if (mUsePendingIntents) {
+//        if (mUsePendingIntents) {
             final Intent completionIntent = new Intent(this, TokenActivity.class);
             final Intent cancelIntent = new Intent(this, LoginActivity.class);
             cancelIntent.putExtra(EXTRA_FAILED, true);
@@ -371,12 +371,12 @@ public final class LoginActivity extends AppCompatActivity {
                     PendingIntent.getActivity(this, 0, completionIntent, flags),
                     PendingIntent.getActivity(this, 0, cancelIntent, flags),
                     mAuthIntent.get());
-        } else {
-            Intent intent = mAuthService.getAuthorizationRequestIntent(
-                    mAuthRequest.get(),
-                    mAuthIntent.get());
-            startActivityForResult(intent, RC_AUTH);
-        }
+//        } else {
+//            Intent intent = mAuthService.getAuthorizationRequestIntent(
+//                    mAuthRequest.get(),
+//                    mAuthIntent.get());
+//            startActivityForResult(intent, RC_AUTH);
+//        }
     }
 
     private void recreateAuthorizationService() {
@@ -441,13 +441,18 @@ public final class LoginActivity extends AppCompatActivity {
         AuthorizationServiceConfiguration config = state.getAuthorizationServiceConfiguration();
 
         String authEndpointStr;
+        String logoutEndpointStr;
         if (config.discoveryDoc != null) {
             authEndpointStr = "Discovered auth endpoint: \n";
+            logoutEndpointStr = "Discovered auth endpoint: \n";
         } else {
             authEndpointStr = "Static auth endpoint: \n";
+            logoutEndpointStr = "Static auth endpoint: \n";
         }
         authEndpointStr += config.authorizationEndpoint;
         ((TextView)findViewById(R.id.auth_endpoint)).setText(authEndpointStr);
+        logoutEndpointStr += config.endSessionEndpoint;
+        ((TextView)findViewById(R.id.end_session_endpoint)).setText(logoutEndpointStr);
 
         String clientIdStr;
         if (state.getLastRegistrationResponse() != null) {
