@@ -17,6 +17,7 @@ package com.example.myauthapp.login;
 import android.annotation.TargetApi;
 import android.app.PendingIntent;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
@@ -413,6 +414,10 @@ public final class LoginActivity extends AppCompatActivity {
         }
         clientIdStr += mClientId;
         ((TextView)findViewById(R.id.client_id)).setText(clientIdStr);
+
+        String redirectUriStr = "Redirect Uri :\n";
+        redirectUriStr += mConfiguration.getRedirectUri().toString();
+        ((TextView)findViewById(R.id.redirect_uri)).setText(redirectUriStr);
     }
 
     private void displayAuthCancelled() {

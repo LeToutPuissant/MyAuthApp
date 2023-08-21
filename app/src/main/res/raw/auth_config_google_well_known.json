@@ -1,7 +1,7 @@
 {
   "client_id": "903005893507-ack5uv5ueho1sqf2cgcn36rps44ettpo.apps.googleusercontent.com",
-  "redirect_uri": "com.groupamapvl.applicationmobilecollaborateurpvl.dev:/*",
-  "end_session_redirect_uri": "com.groupamapvl.applicationmobilecollaborateurpvl.dev:/*",
+  "redirect_uri": "net.openid.appauthdemo:/oauth2redirect",
+  "end_session_redirect_uri": "net.openid.appauthdemo:/oauth2redirect",
   "authorization_scope": "openid email profile",
   "discovery_uri": "https://accounts.google.com/.well-known/openid-configuration",
   "authorization_endpoint_uri": "",

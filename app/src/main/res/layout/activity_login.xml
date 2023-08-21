@@ -99,6 +99,12 @@
                     android:textIsSelectable="true" />
 
                 <TextView
+                    android:id="@+id/redirect_uri"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textIsSelectable="true" />
+
+                <TextView
                     android:id="@+id/end_session_endpoint"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
