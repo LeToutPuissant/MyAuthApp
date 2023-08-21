@@ -3,13 +3,11 @@
   "redirect_uri": "net.openid.appauthdemo:/oauth2redirect",
   "end_session_redirect_uri": "net.openid.appauthdemo:/oauth2redirect",
   "authorization_scope": "openid email profile",
-  "discovery_uri": "",
-  "authorization_endpoint_uri": "https://accounts.google.com/o/oauth2/v2/auth",
-  "token_endpoint_uri": "https://www.googleapis.com/oauth2/v4/token",
+  "discovery_uri": "https://accounts.google.com/.well-known/openid-configuration",
+  "authorization_endpoint_uri": "",
+  "token_endpoint_uri": "",
   "registration_endpoint_uri": "",
   "user_info_endpoint_uri": "https://www.googleapis.com/oauth2/v1/userinfo",
-  "mauvais_end_session_endpoint": "https://oauth2.googleapis.com/revoke",
-  "end_session_endpoint": "https://oauth2.googleapis.com/revoke",
-  "_pas_suffisant_end_session_endpoint": "https://accounts.google.com/Logout",
+  "end_session_endpoint": "",
   "https_required": true
 }

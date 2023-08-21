@@ -85,7 +85,6 @@ public final class LoginActivity extends AppCompatActivity {
 
     private static final String TAG = "LoginActivity";
     private static final String EXTRA_FAILED = "failed";
-    private static final int RC_AUTH = 100;
 
     private AuthorizationService mAuthService;
     private AuthStateManager mAuthStateManager;
@@ -97,10 +96,8 @@ public final class LoginActivity extends AppCompatActivity {
     private CountDownLatch mAuthIntentLatch = new CountDownLatch(1);
     private ExecutorService mExecutor;
 
-//    private boolean mUsePendingIntents;
-
     @NonNull
-    private BrowserMatcher mBrowserMatcher = AnyBrowserMatcher.INSTANCE;
+    private final BrowserMatcher mBrowserMatcher = AnyBrowserMatcher.INSTANCE;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -126,15 +123,11 @@ public final class LoginActivity extends AppCompatActivity {
                 mExecutor.submit(this::initializeAppAuth));
         findViewById(R.id.start_auth).setOnClickListener((View view) -> startAuth());
 
-//        ((EditText)findViewById(R.id.login_hint_value)).addTextChangedListener(
-//                new LoginHintChangeHandler());
-
         if (!mConfiguration.isValid()) {
             displayError(mConfiguration.getConfigurationError(), false);
             return;
         }
 
-//        configureBrowserSelector();
         if (mConfiguration.hasConfigurationChanged()) {
             // discard any existing authorization state due to the change of configuration
             Log.i(TAG, "Configuration change detected, discarding old state");
@@ -189,8 +182,6 @@ public final class LoginActivity extends AppCompatActivity {
     @MainThread
     void startAuth() {
         displayLoading("Making authorization request");
-
-//        mUsePendingIntents = ((CheckBox) findViewById(R.id.pending_intents_checkbox)).isChecked();
 
         // WrongThread inference is incorrect for lambdas
         // noinspection WrongThread
@@ -310,39 +301,6 @@ public final class LoginActivity extends AppCompatActivity {
         initializeAuthRequest();
     }
 
-//    /**
-//     * Enumerates the browsers installed on the device and populates a spinner, allowing the
-//     * demo user to easily test the authorization flow against different browser and custom
-//     * tab configurations.
-//     */
-//    @MainThread
-//    private void configureBrowserSelector() {
-//        Spinner spinner = (Spinner) findViewById(R.id.browser_selector);
-//        final BrowserSelectionAdapter adapter = new BrowserSelectionAdapter(this);
-//        spinner.setAdapter(adapter);
-//        spinner.setOnItemSelectedListener(new OnItemSelectedListener() {
-//            @Override
-//            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-//                BrowserSelectionAdapter.BrowserInfo info = adapter.getItem(position);
-//                if (info == null) {
-//                    mBrowserMatcher = AnyBrowserMatcher.INSTANCE;
-//                    return;
-//                } else {
-//                    mBrowserMatcher = new ExactBrowserMatcher(info.mDescriptor);
-//                }
-//
-//                recreateAuthorizationService();
-//                createAuthRequest(getLoginHint());
-//                warmUpBrowser();
-//            }
-//
-//            @Override
-//            public void onNothingSelected(AdapterView<?> parent) {
-//                mBrowserMatcher = AnyBrowserMatcher.INSTANCE;
-//            }
-//        });
-//    }
-
     /**
      * Performs the authorization request, using the browser selected in the spinner,
      * and a user-provided `login_hint` if available.
@@ -355,28 +313,21 @@ public final class LoginActivity extends AppCompatActivity {
             Log.w(TAG, "Interrupted while waiting for auth intent");
         }
 
-//        if (mUsePendingIntents) {
-            final Intent completionIntent = new Intent(this, TokenActivity.class);
-            final Intent cancelIntent = new Intent(this, LoginActivity.class);
-            cancelIntent.putExtra(EXTRA_FAILED, true);
-            cancelIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        final Intent completionIntent = new Intent(this, TokenActivity.class);
+        final Intent cancelIntent = new Intent(this, LoginActivity.class);
+        cancelIntent.putExtra(EXTRA_FAILED, true);
+        cancelIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
 
-            int flags = 0;
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
-                flags |= PendingIntent.FLAG_MUTABLE;
-            }
+        int flags = 0;
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
+            flags |= PendingIntent.FLAG_MUTABLE;
+        }
 
-            mAuthService.performAuthorizationRequest(
-                    mAuthRequest.get(),
-                    PendingIntent.getActivity(this, 0, completionIntent, flags),
-                    PendingIntent.getActivity(this, 0, cancelIntent, flags),
-                    mAuthIntent.get());
-//        } else {
-//            Intent intent = mAuthService.getAuthorizationRequestIntent(
-//                    mAuthRequest.get(),
-//                    mAuthIntent.get());
-//            startActivityForResult(intent, RC_AUTH);
-//        }
+        mAuthService.performAuthorizationRequest(
+                mAuthRequest.get(),
+                PendingIntent.getActivity(this, 0, completionIntent, flags),
+                PendingIntent.getActivity(this, 0, cancelIntent, flags),
+                mAuthIntent.get());
     }
 
     private void recreateAuthorizationService() {
@@ -500,10 +451,6 @@ public final class LoginActivity extends AppCompatActivity {
     }
 
     private String getLoginHint() {
-//        return ((EditText)findViewById(R.id.login_hint_value))
-//                .getText()
-//                .toString()
-//                .trim();
         return ""; // supression du login hint
     }
 
@@ -528,11 +475,6 @@ public final class LoginActivity extends AppCompatActivity {
 
         private Handler mHandler;
         private RecreateAuthRequestTask mTask;
-
-//        LoginHintChangeHandler() {
-//            mHandler = new Handler(Looper.getMainLooper());
-//            mTask = new RecreateAuthRequestTask();
-//        }
 
         @Override
         public void beforeTextChanged(CharSequence cs, int start, int count, int after) {}
